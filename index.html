@@ -2,17 +2,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YHBZQ4E08"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-1YHBZQ4E08');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LETRÔ - Jogo de palavras</title>
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YHBZQ4E08"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-1YHBZQ4E08');
+</script>
+
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#f8f6ff;color:#302746;font-family:Arial,sans-serif}
@@ -40,25 +42,24 @@ main{max-width:560px;margin:auto;padding:22px 15px}
 .back{background:transparent;color:#786b91;padding:8px}
 .pill{background:#eee8ff;color:#7045d5;padding:7px 13px;border-radius:20px;font-size:11px;font-weight:bold}
 .hint{text-align:center;color:#898296;font-size:13px}
+
+/* QUADROS */
 .boards{display:grid;gap:13px;align-items:start}
 .boards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .boards.four{
-  display:grid !important;
-  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  grid-template-rows:auto auto;
-  grid-auto-flow:row;
-  align-items:start;
-  gap:12px 10px;
-  width:100%;
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:auto auto;
+ grid-auto-flow:row;
+ align-items:start;
+ gap:12px 10px;
+ width:100%;
 }
-.boards.four > div{
-  display:block;
-  min-width:0;
-  width:100%;
-}
+.boards.four>div{display:block;min-width:0;width:100%}
 .boards.four .board-title{font-size:11px;margin:4px 0 6px}
 .boards.four .rowtiles{gap:3px;margin-bottom:3px}
 .boards.four .tile{border-radius:5px;font-size:clamp(12px,3.5vw,19px)}
+
 .board-title{text-align:center;color:#958ba5;font-size:10px;font-weight:bold;margin:5px}
 .rowtiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-bottom:4px}
 .tile{aspect-ratio:1;border:2px solid #e3ddec;border-radius:6px;background:white;display:grid;place-items:center;font-weight:bold;font-size:clamp(14px,4vw,22px)}
@@ -79,227 +80,189 @@ main{max-width:560px;margin:auto;padding:22px 15px}
 .primary{background:#7045d5;color:white;padding:12px 20px;border-radius:10px;font-weight:bold;margin-top:10px}
 .hidden{display:none!important}
 footer{text-align:center;color:#aaa1b7;font-size:11px;padding:25px}
-@media(max-width:380px){main{padding:14px 10px}.tile{border-width:1px}.key{height:39px;font-size:11px}.boards{gap:7px}}
+@media(max-width:380px){
+ main{padding:14px 10px}
+ .tile{border-width:1px}
+ .key{height:39px;font-size:11px}
+ .boards{gap:7px}
+}
 </style>
 </head>
+
 <body>
 <header>
 <button class="back" onclick="home()">⌂</button>
 <div class="logo">LETR<span>Ô</span></div>
 <button class="back" onclick="help()">?</button>
 </header>
+
 <main>
 <section id="homeScreen">
- <div class="hero">
-  <div class="letters"><span>L</span><span>E</span><span>T</span><span>R</span><span>Ô</span></div>
-  <h1>Descubra a <span>palavra!</span></h1>
-  <p>Uma palavra secreta. Descubra usando suas tentativas.<br>Você consegue acertar?</p>
- </div>
- <button class="mode" onclick="start('termo')"><span class="emoji">🔤</span><span><strong>TERMO</strong><small>Descubra uma palavra</small></span><span class="arrow">›</span></button>
- <button class="mode" onclick="start('dueto')"><span class="emoji">🧩</span><span><strong>DUETO</strong><small>Descubra duas palavras</small></span><span class="arrow">›</span></button>
- <button class="mode" onclick="start('quarteto')"><span class="emoji">🎯</span><span><strong>QUARTETO</strong><small>Descubra quatro palavras em até 9 tentativas</small></span><span class="arrow">›</span></button>
- <div class="ad">ESPAÇO PUBLICITÁRIO</div>
+<div class="hero">
+<div class="letters"><span>L</span><span>E</span><span>T</span><span>R</span><span>Ô</span></div>
+<h1>Descubra a <span>palavra!</span></h1>
+<p>Uma palavra secreta. Descubra usando suas tentativas.<br>Você consegue acertar?</p>
+</div>
+
+<button class="mode" onclick="start('termo')"><span class="emoji">🔤</span><span><strong>TERMO</strong><small>Descubra uma palavra</small></span><span class="arrow">›</span></button>
+<button class="mode" onclick="start('dueto')"><span class="emoji">🧩</span><span><strong>DUETO</strong><small>Descubra duas palavras</small></span><span class="arrow">›</span></button>
+<button class="mode" onclick="start('quarteto')"><span class="emoji">🎯</span><span><strong>QUARTETO</strong><small>Descubra quatro palavras em até 9 tentativas</small></span><span class="arrow">›</span></button>
+<div class="ad">ESPAÇO PUBLICITÁRIO</div>
 </section>
+
 <section id="gameScreen" class="hidden">
- <div class="top">
- <button class="back" onclick="home()">← Voltar</button>
- <span class="pill" id="modeLabel"></span>
- <button class="back" onclick="start(mode)">↻ Reiniciar</button>
- </div>
- <p class="hint">Digite uma palavra de cinco letras.</p>
- <div id="boards" class="boards"></div>
- <div id="result" class="result hidden"></div>
- <div id="keyboard" class="keyboard"></div>
+<div class="top">
+<button class="back" onclick="home()">← Voltar</button>
+<span class="pill" id="modeLabel"></span>
+<button class="back" onclick="start(mode)">↻ Reiniciar</button>
+</div>
+<p class="hint">Digite uma palavra de cinco letras.</p>
+<div id="boards" class="boards"></div>
+<div id="result" class="result hidden"></div>
+<div id="keyboard" class="keyboard"></div>
 </section>
 </main>
+
 <footer>LETRÔ • Jogue com as palavras</footer>
+
 <script>
 const WORDS=`ABRIR ACASO ADEUS AFETO AGORA AJUDA ALUNO AMIGO AMORA ANDAR ANTES APOIO AREIA ARENA ARROZ ARTES ATUAL AVIAO AVISO BAIXO BANCO BANHO BARCO BARRO BASTA BATOM BEBER BEIJO BICHO BOLSA BONDE BORDA BOSSA BRACO BRASA BREVE BRISA BROTO CABER CACAU CAIXA CALMA CALOR CAMPO CANAL CANTO CAPAZ CARNE CARRO CARTA CASAL CASAR CASCA CAUSA CEDER CERCA CERTO CHAVE CHEFE CHUVA CICLO CINCO CINZA CLARA CLARO CLIMA CLUBE COISA COLAR COMER CONTA CORAL CORDA CORES CORPO COURO CRAVO CRIME CRISE CUIDA CULPA CURSO DANCA DEDOS DENTE DIETA DISCO DOIDO DOLAR DONOS DORME DRAMA DUCHA DUNAS ECOAR EDITA ELITE ENVIO ERROS ESTAR ETAPA EXAME EXATO EXITO FALAR FALHA FALSO FALTA FARDO FAROL FASES FATAL FAUNA FAZER FELIZ FERRO FESTA FICAR FILHO FINAL FIRME FLORA FOCOU FOLHA FORCA FORMA FORNO FOTOS FRACO FREIO FRUTA FUNDO GASTO GELOU GENTE GESTO GLOBO GOLPE GOSTO GRAUS GRUPO HOTEL HUMOR IDADE IDEAL IGUAL ILHAS IMENSO IMPOR INATO INOVA IRMAO JANTA JOGAR JOVEM JUIZO JUNHO JUSTO LADOS LAGOA LANCE LARVA LATAS LENTO LETRA LIGAR LIMAO LIMPO LINDA LINDO LIVRO LOCAL LUGAR LUNAR LUZES MACIO MAGIA MAIOR MALHA MANGA MANHA MARCA MARCO MARTE MASSA MATAR MEDIR MELAO MENOS MENTE MESMA MESMO METAL METRO MEXER MILHO MINHA MIRAR MOEDA MOLHO MONTE MORAL MORRO MORTO MOTOR MUDAR MUITO MUNDO MUSGO NATAL NAVIO NEGAR NEGRO NENEM NERVO NEVOA NINHO NOBRE NOITE NORTE NOTAR NUVEM OBRAS OLHAR ONTEM OPERA ORDEM PAGAR PALCO PALHA PALMA PAPEL PARAR PARTE PASSO PASTA PATIO PEDRA PEIXE PERDA PERTO PESAR PIANO PILHA PISTA PLACA PLANO PLENO POBRE PODER POEMA PONTO PORCO PORTA PRATO PRECO PRETO PRIMO PROVA QUASE QUEDA QUEIJO RAIVA RAMOS RAPAZ RASGO RAZAO REAIS REINO RELVA REMAR RESTO RIMAS RISCO RITMO ROCHA RODAR ROUPA RUIDO SABER SABOR SACAR SACOS SALTO SANTO SAUDE SECAR SEGUE SEIVA SENHA SENSO SERIO SERRA SETOR SIGLA SINAL SITIO SOBRA SOBRE SONHO SORTE SUBIR SUCOS SUAVE SUJAR TAMPA TANTO TEMPO TENDA TERMO TERNO TERRA TEXTO TIGRE TINTA TIRAR TOCAR TOMAR TORRE TOTAL TRAMA TREVO TROCA TURMA UNIAO UNICO USADO USINA VAGAS VAPOR VELHO VENDA VERDE VERBO VERSO VESTE VIDRO VIGOR VINHO VIRAR VISTA VIVER VOZES ABALO ABANA ABATE ABETO ABRIL ACENO ACESA ACESO ACIDO ACIMA ACOES ADEGA ADORA ADUBO AEREO AGUAS AGUDO AINDA AJUDE ALADO ALBUM ALMAS AMADA AMADO AMBAR AMBOS AMENA AMENO AMIGA ANAIS ANEXO ANIMO ANUAL APICE APITO AQUEM ARAME ARARA ARDER ARIDO ARMAR ARMAS ASTRO ATACA ATADO ATLAS ATOMO ATRAS AULAS AZEIT AZUIS BACIA BAGRE BAILE BALAO BALDE BALSA BANAL BANIR BARBA BARRA BASES BATAS BATER BEATA BEATO BELOS BICAR BOLAO BOLOS BOLSO BOTAO BRAVA BRAVO BREJO BRIGA BRUTO CABOS CACOS CAIDA CAIDO CALCA CALDO CAMAS CANJA CARGA CAROS CEDRO CEGAR CELAS CENAS CESTA CETIM CHAPA CHATO CHEIA CHEIO CHOCA CHOCO CHORO CHUTE CIGAR CINTA CIRCO COBRA COFRE COIFA COMUM CONDE CONES CORAR COUVE CRIAR CRUEL CUBOS CUECA CULTO CURAR CURVA DADOS DEDAL DEIXA DELTA DENSO DESCE DESDE DESTE DEVEM DIABO DICAS DIZER DOBRA DORES DOUTO DRONE DUELO EIXOS ELBOS ENFIM ENJOA ENTRA ENVIA EPICO ERVAS ESPIA ESTOU EXIGE FACAS FACES FACIL FALAS FALOU FAMOS FARSA FARTA FARTO FEIOS FEIRA FELPA FERAS FERIR FICHA FIEIS FILAS FINCA FINOS FINTA FIRMA FIZER FOICE FONES FORTE FOSSA FOSSO FUGIR GADOS GALHO GANSO GARFO GARRA GASES GATOS GEADA GELOS GERAL GIRAR GOLFO GOMOS GORRO GRAMA GRANA GRAVE GRAVO GRITO GROTA HASTE HINOS HONRA HORAS HORTA HOUVE ICONE IDEIA IDOLO ILUSA IMITA IMPAR INCHA INDIO INOVE IRADO ISOLA JACAS JAGUA JARRA JATOS JEITO JOGOS JUIZA JURAR LACRE LAGOS LAJES LAMAS LAMBE LARGA LARGO LAVAR LEAIS LEITE LEMAS LEMES LENCO LERDO LESTE LEVAR LIDAR LIGAS LIMPA LINHA LINHO LIRIO LISTA LITRO LIXOS LOBOS LOIRA LOIRO LOMBO LOTES LOUCA LOUCO LUCRO MACRO MADRE MAGRO MALES MALTA MAMAS MANSO MANTO MAPAS MARES MATOS MEDOS MEIAS MELAR MENOR MESAS METAS MEXAS MEXEU MIGRA MILHA MIMOS MINAS MIRRA MISSA MODAS MODOS MOLES MORAR MORDA MORNA MORNO MURAL NADAR NARIZ NASCE NAVEZ NEVAR NEXOS NODOS NOMES NORMA NOTAS OBESO OCUPA OLHOS ONDAS OPACO ORCAS ORGIA OSSOS OUTRA OUTRO PADRE PAGOS PANOS PAPAS PARDO PARES PAROU PARTO PAVIO PECAS PEDAL PEDIR PEGAR PEITO PELOS PENAS PENSA PENTE PERAS PERNA PESCA PESOS PIADA PICAR PICOS PILAR PINGA PINOS PIPAS PIRAR PISAR PIZZA POLEN POLVO POMAR POMBO PONTE POTES PRADO PRAIA PREGA PREGO PREZA PRISA PROSA PRUMO QUILO QUINA QUOTA RABOS RACAO RAIOS RAPTO RASPA RASTO RECEM REGRA RELAX RENDA REPOR RETAS RETRO RIGOR RIMAR ROLOS ROMBO ROSAS ROSTO ROTAS ROUCA ROUCO RUGAS RURAL SABIA SABIO SACRA SACRO SAFRA SAGAZ SALAS SALDO SALGA SALMO SAPOS SARAR SECAS SEIOS SELAR SELVA SENDA SERES SERIA SERVO SETAS SEXTO SILVO SIMIO SOCAR SOCOS SOFAS SOLAR SOLDA SOLTA SOLTO SOMAR SONAR SONDA SOPAS SORRI SUADO SUMIR SUPER TACHO TALCO TALHA TALHO TALOS TANGO TAPAS TATOS TECLA TEIAS TELAS TEMAS TENAZ TERCA TERCO TESTE TETOS TIARA TIMAO TIRAS TOCHA TOQUE TORAS TOSSE TRAGO TRAJE TRECO TREMA TRIGO TRIPA TROCO TRONO TUBOS TUMOR TUNEL VAGAO VALES VALOR VARAL VAZIO VEIAS VELAS VENAL VERBA VETOR VICIO VIDAS VILAO VINDA VINDO VINTA VIRAL VIVAS VIVOS ZEBRA ZELAR ZONAS`.split(' ');
 
 const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase();
 
-/* DICIONÁRIO EXTRA */
 const EXTRA_WORDS=new Set();
 const dictionaryReady=fetch('https://raw.githubusercontent.com/pythonprobr/palavras/master/palavras.txt')
-.then(r=>{
- if(!r.ok)throw new Error('Falha ao carregar dicionário');
- return r.text();
-})
-.then(t=>{
- t.split(/\s+/).forEach(w=>{
-  const word=norm(w.trim());
-  if(/^[A-Z]{5}$/.test(word))EXTRA_WORDS.add(word);
- });
- console.log('Dicionário extra carregado:',EXTRA_WORDS.size);
-})
+.then(r=>{if(!r.ok)throw new Error('Falha ao carregar dicionário');return r.text();})
+.then(t=>{t.split(/\s+/).forEach(w=>{const word=norm(w.trim());if(/^[A-Z]{5}$/.test(word))EXTRA_WORDS.add(word);});})
 .catch(err=>console.warn('Dicionário extra indisponível; usando lista básica.',err));
 
 let mode='termo',answers=[],boards=[],current='',finished=false;
 function maxAttempts(){return mode==='quarteto'?9:6;}
 
 function dailySeed(){
- let s=new Date().toISOString().slice(0,10),h=0;
- for(let c of s)h=(h*31+c.charCodeAt(0))>>>0;
- return h;
+let s=new Date().toISOString().slice(0,10),h=0;
+for(let c of s)h=(h*31+c.charCodeAt(0))>>>0;
+return h;
 }
 
 function chooseWords(n){
- let seed=dailySeed()+({termo:11,dueto:29,quarteto:53}[mode]);
- let out=[];
- for(let i=0;i<n;i++){
-  seed=(seed*1664525+1013904223)>>>0;
-  out.push(WORDS[seed%WORDS.length]);
- }
- return out;
+let seed=dailySeed()+({termo:11,dueto:29,quarteto:53}[mode]);
+let out=[];
+for(let i=0;i<n;i++){seed=(seed*1664525+1013904223)>>>0;out.push(WORDS[seed%WORDS.length]);}
+return out;
 }
 
 function start(m){
- mode=m;
- answers=chooseWords({termo:1,dueto:2,quarteto:4}[m]);
- boards=answers.map(()=>({rows:[],won:false}));
- current='';
- finished=false;
- document.getElementById('homeScreen').classList.add('hidden');
- document.getElementById('gameScreen').classList.remove('hidden');
- document.getElementById('modeLabel').textContent=m.toUpperCase();
- document.getElementById('result').classList.add('hidden');
- draw();
+mode=m;
+answers=chooseWords({termo:1,dueto:2,quarteto:4}[m]);
+boards=answers.map(()=>({rows:[],won:false}));
+current='';finished=false;
+document.getElementById('homeScreen').classList.add('hidden');
+document.getElementById('gameScreen').classList.remove('hidden');
+document.getElementById('modeLabel').textContent=m.toUpperCase();
+document.getElementById('result').classList.add('hidden');
+draw();
 }
 
 function home(){
- document.getElementById('gameScreen').classList.add('hidden');
- document.getElementById('homeScreen').classList.remove('hidden');
+document.getElementById('gameScreen').classList.add('hidden');
+document.getElementById('homeScreen').classList.remove('hidden');
 }
 
 function help(){
- alert('Descubra '+(mode==='quarteto'?'as quatro palavras em até nove tentativas.':'a(s) palavra(s) em até seis tentativas.')+' Verde: letra certa no lugar. Amarelo: letra existe em outra posição. Cinza: letra não existe.');
+alert('Descubra '+(mode==='quarteto'?'as quatro palavras em até nove tentativas.':'a(s) palavra(s) em até seis tentativas.')+' Verde: letra certa no lugar. Amarelo: letra existe em outra posição. Cinza: letra não existe.');
 }
 
 function score(g,a){
- let r=Array(5).fill('absent'),counts={};
- for(let i=0;i<5;i++){
-  if(g[i]===a[i])r[i]='correct';
-  else counts[a[i]]=(counts[a[i]]||0)+1;
- }
- for(let i=0;i<5;i++){
-  if(r[i]==='correct')continue;
-  if(counts[g[i]]>0){
-   r[i]='present';
-   counts[g[i]]--;
-  }
- }
- return r;
+let r=Array(5).fill('absent'),counts={};
+for(let i=0;i<5;i++){if(g[i]===a[i])r[i]='correct';else counts[a[i]]=(counts[a[i]]||0)+1;}
+for(let i=0;i<5;i++){if(r[i]==='correct')continue;if(counts[g[i]]>0){r[i]='present';counts[g[i]]--;}}
+return r;
 }
 
 function draw(){
- let b=document.getElementById('boards');
- b.className='boards '+(mode==='termo'?'':mode);
- b.innerHTML='';
- boards.forEach((board,bi)=>{
-  let el=document.createElement('div');
-  el.innerHTML='<div class="board-title">'+(answers.length===1?'DESCUBRA A PALAVRA':'PALAVRA '+(bi+1))+'</div>';
-  for(let r=0;r<maxAttempts();r++){
-   let row=document.createElement('div');
-   row.className='rowtiles';
-   let data=board.rows[r];
-   for(let c=0;c<5;c++){
-    let t=document.createElement('div');
-    t.className='tile';
-    let letter=data?data.word[c]:(r===board.rows.length&&!board.won?current[c]||'':'');
-    t.textContent=letter||'';
-    if(data)t.classList.add(data.result[c]);
-    else if(letter)t.classList.add('filled');
-    row.appendChild(t);
-   }
-   el.appendChild(row);
-  }
-  b.appendChild(el);
- });
- drawKeyboard();
+let b=document.getElementById('boards');
+
+/* CORREÇÃO: classe FOUR no QUARTETO */
+b.className='boards '+(mode==='termo'?'':mode==='dueto'?'two':'four');
+
+b.innerHTML='';
+boards.forEach((board,bi)=>{
+let el=document.createElement('div');
+el.innerHTML='<div class="board-title">'+(answers.length===1?'DESCUBRA A PALAVRA':'PALAVRA '+(bi+1))+'</div>';
+for(let r=0;r<maxAttempts();r++){
+let row=document.createElement('div');row.className='rowtiles';
+let data=board.rows[r];
+for(let c=0;c<5;c++){
+let t=document.createElement('div');t.className='tile';
+let letter=data?data.word[c]:(r===board.rows.length&&!board.won?current[c]||'':'');
+t.textContent=letter||'';
+if(data)t.classList.add(data.result[c]);else if(letter)t.classList.add('filled');
+row.appendChild(t);
+}
+el.appendChild(row);
+}
+b.appendChild(el);
+});
+drawKeyboard();
 }
 
 function drawKeyboard(){
- let used={};
- boards.forEach(b=>b.rows.forEach(row=>row.word.split('').forEach((l,i)=>{
-  let s=row.result[i];
-  if(s==='correct'||!used[l])used[l]=s;
-  else if(s==='present'&&used[l]!=='correct')used[l]=s;
- })));
- let k=document.getElementById('keyboard');
- k.innerHTML='';
- ['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].forEach(line=>{
-  let row=document.createElement('div');
-  row.className='keyrow';
-  for(let l of line){
-   let btn=document.createElement('button');
-   btn.className='key '+(used[l]||'');
-   btn.textContent=l;
-   btn.onclick=()=>press(l);
-   row.appendChild(btn);
-  }
-  k.appendChild(row);
- });
- let row=document.createElement('div');
- row.className='keyrow';
- [['⌫','del'],['ENTER','enter']].forEach(([v,cl])=>{
-  let btn=document.createElement('button');
-  btn.className='key '+cl;
-  btn.textContent=v;
-  btn.onclick=()=>press(v==='⌫'?'BACKSPACE':'ENTER');
-  row.appendChild(btn);
- });
- k.appendChild(row);
+let used={};
+boards.forEach(b=>b.rows.forEach(row=>row.word.split('').forEach((l,i)=>{
+let s=row.result[i];
+if(s==='correct'||!used[l])used[l]=s;
+else if(s==='present'&&used[l]!=='correct')used[l]=s;
+})));
+let k=document.getElementById('keyboard');k.innerHTML='';
+['QWERTYUIOP','ASDFGHJKL','ZXCVBNM'].forEach(line=>{
+let row=document.createElement('div');row.className='keyrow';
+for(let l of line){
+let btn=document.createElement('button');btn.className='key '+(used[l]||'');
+btn.textContent=l;btn.onclick=()=>press(l);row.appendChild(btn);
+}
+k.appendChild(row);
+});
+let row=document.createElement('div');row.className='keyrow';
+[['⌫','del'],['ENTER','enter']].forEach(([v,cl])=>{
+let btn=document.createElement('button');btn.className='key '+cl;
+btn.textContent=v;btn.onclick=()=>press(v==='⌫'?'BACKSPACE':'ENTER');row.appendChild(btn);
+});
+k.appendChild(row);
 }
 
 function press(k){
- if(finished)return;
- if(k==='BACKSPACE'){
-  current=current.slice(0,-1);
-  draw();
-  return;
- }
- if(k==='ENTER'){
-  submit();
-  return;
- }
- if(/^[A-Z]$/.test(k)&&current.length<5){
-  current+=k;
-  draw();
- }
+if(finished)return;
+if(k==='BACKSPACE'){current=current.slice(0,-1);draw();return;}
+if(k==='ENTER'){submit();return;}
+if(/^[A-Z]$/.test(k)&&current.length<5){current+=k;draw();}
 }
 
 async function submit(){
- if(current.length!==5){
-  alert('Digite cinco letras.');
-  return;
- }
- const guess=current;
- await dictionaryReady;
- if(!WORDS.includes(guess)&&!EXTRA_WORDS.has(guess)){
-  alert('Palavra não encontrada no dicionário.');
-  return;
- }
- boards=boards.map((b,i)=>{
-  if(b.won||b.rows.length>=maxAttempts())return b;
-  let result=score(guess,answers[i]);
-  return {...b,rows:[...b.rows,{word:guess,result}],won:result.every(x=>x==='correct')};
- });
- current='';
- finished=boards.every(b=>b.won||b.rows.length>=maxAttempts());
- draw();
- if(finished){
-  let won=boards.every(b=>b.won);
-  let res=document.getElementById('result');
-  res.classList.remove('hidden');
-  res.innerHTML='<strong>'+(won?'🎉 Você conseguiu!':'Fim de jogo!')+'</strong>'+answers.map((a,i)=>'Palavra '+(i+1)+': <b>'+a+'</b>').join('<br>')+'<br><button class="primary" onclick="start(mode)">Jogar novamente</button>';
- }
+if(current.length!==5){alert('Digite cinco letras.');return;}
+const guess=current;
+await dictionaryReady;
+if(!WORDS.includes(guess)&&!EXTRA_WORDS.has(guess)){alert('Palavra não encontrada no dicionário.');return;}
+boards=boards.map((b,i)=>{
+if(b.won||b.rows.length>=maxAttempts())return b;
+let result=score(guess,answers[i]);
+return {...b,rows:[...b.rows,{word:guess,result}],won:result.every(x=>x==='correct')};
+});
+current='';
+finished=boards.every(b=>b.won||b.rows.length>=maxAttempts());
+draw();
+if(finished){
+let won=boards.every(b=>b.won);
+let res=document.getElementById('result');res.classList.remove('hidden');
+res.innerHTML='<strong>'+(won?'🎉 Você conseguiu!':'Fim de jogo!')+'</strong>'+answers.map((a,i)=>'Palavra '+(i+1)+': <b>'+a+'</b>').join('<br>')+'<br><button class="primary" onclick="start(mode)">Jogar novamente</button>';
+}
 }
 
 document.addEventListener('keydown',e=>{
- if(document.getElementById('gameScreen').classList.contains('hidden'))return;
- if(e.key==='Enter')press('ENTER');
- else if(e.key==='Backspace')press('BACKSPACE');
- else if(/^[a-z]$/i.test(e.key))press(e.key.toUpperCase());
+if(document.getElementById('gameScreen').classList.contains('hidden'))return;
+if(e.key==='Enter')press('ENTER');
+else if(e.key==='Backspace')press('BACKSPACE');
+else if(/^[a-z]$/i.test(e.key))press(e.key.toUpperCase());
 });
 </script>
 </body>
